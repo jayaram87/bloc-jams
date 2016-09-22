@@ -94,3 +94,6 @@ body {
      clear: both;
 }
 
+.container.narrow {
+     max-width: 56rem;
+}
