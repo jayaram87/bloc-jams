@@ -102,8 +102,9 @@ var nextSong = function() {
     
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    setSong(currentlyPlayingSongNumber);
     currentSoundFile.play();
-
+    
     updatePlayerBarSong();
     
     var lastSongNumber = getLastSongNumber(currentSongIndex);
@@ -129,6 +130,7 @@ var previousSong = function() {
     
     currentlyPlayingSongNumber = currentSongIndex + 1;
     currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+    setSong(currentlyPlayingSongNumber);
     currentSoundFile.play();
 
     updatePlayerBarSong();
@@ -144,15 +146,16 @@ var previousSong = function() {
 var togglePlayFromPlayerBar = function() {
     var $songNumberCell = getSongNumberCell(currentlyPlayingSongNumber);
     
-    if(currentSoundFile.pause() && $playPauseButton.click){ //condition that checks if the sound file is paused and play button is clicked on player bar
+    if(currentSoundFile && currentSoundFile.isPaused()){
         $songNumberCell.html(pauseButtonTemplate);
-        $playPauseButton.html(pauseButtonTemplate);
+        $(this).html(playerBarPauseButton);
         currentSoundFile.play();
-    } else if (currentSoundFile.play() && $playPauseButton.click){ //condition that checks if the sound file is playing and pause button is clicked on player bar)
+    } else if(currentSoundFile){
         $songNumberCell.html(playButtonTemplate);
-        $playPauseButton.html(playButtonTemplate);
-        currentSoundFile.puase();
+        $(this).html(playerBarPlayButton);
+        currentSoundFile.pause();    
     }
+    
 };
 
 var updatePlayerBarSong = function() {
